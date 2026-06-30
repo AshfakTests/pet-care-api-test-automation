@@ -93,3 +93,6 @@ pet-care-api-test-automation/
 The project generates an HTML report after execution.
 
 ![Newman Dashboard](Screenshots/1new.png)
+![Newman Dashboard](Screenshots/2new.png)
+![Newman Dashboard](Screenshots/3new.png)
+![Newman Dashboard](Screenshots/4new.png)
