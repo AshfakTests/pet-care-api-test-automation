@@ -1,10 +1,10 @@
-# 🧪 Pet Care API Test Automation
+#  Pet Care API Test Automation
 
 Automated API testing project using **Postman** and **Newman** to validate the core API workflows of the Pet Care application.
 
 ---
 
-## 📌 Overview
+##  Overview
 
 This project validates the core API workflows through automated test scripts.
 
@@ -22,7 +22,7 @@ This project validates the core API workflows through automated test scripts.
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 - Postman
 - Newman
@@ -31,7 +31,7 @@ This project validates the core API workflows through automated test scripts.
 
 ---
 
-## 🚀 Run the Collection
+##  Run the Collection
 
 ```bash
 newman run Pet_Care_Newman_Ex.postman_collection.json \
@@ -42,7 +42,7 @@ newman run Pet_Care_Newman_Ex.postman_collection.json \
 
 ---
 
-## 📊 Test Summary
+##  Test Summary
 
 | Metric | Result |
 |---------|--------|
@@ -55,7 +55,7 @@ newman run Pet_Care_Newman_Ex.postman_collection.json \
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```text
 pet-care-api-test-automation/
@@ -74,7 +74,7 @@ pet-care-api-test-automation/
 
 ---
 
-## ✅ Validations Performed
+##  Validations Performed
 
 - HTTP status code assertions
 - Response body validation
@@ -88,7 +88,7 @@ pet-care-api-test-automation/
 
 ---
 
-## 📷 Newman HTML Report
+##  Newman HTML Report
 
 The project generates an HTML report after execution.
 
