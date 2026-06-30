@@ -1,0 +1,2183 @@
+{
+  "info": {
+    "_postman_id": "bf20b8d2-6845-41d0-87b6-656ef815a47c",
+    "name": "Pet Care Newman Ex",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "43969889",
+    "_collection_link": "https://go.postman.co/collection/43969889-bf20b8d2-6845-41d0-87b6-656ef815a47c?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "V1(OTP Based) Newman",
+      "item": [
+        {
+          "name": "Registration",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.collectionVariables.set(\"OTP\", pm.response.json().data.otp);\r",
+                  "pm.test(\"Status code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "pm.collectionVariables.set(\"EMAIL\", pm.response.json().data.user.email);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "{{$randomFileName}}",
+                  "description": "REQUIRED",
+                  "type": "text",
+                  "uuid": "941cc2a7-122c-4b51-8d48-e4459d7724b6"
+                },
+                {
+                  "key": "email",
+                  "value": "{{$randomEmail}}",
+                  "description": "REQUIRED",
+                  "type": "text",
+                  "uuid": "87c20ef7-6266-4fd7-b85a-9cecd64f43c3"
+                },
+                {
+                  "key": "password",
+                  "value": "12345678",
+                  "description": "REQUIRED",
+                  "type": "text",
+                  "uuid": "70b830a2-f6aa-431e-a2f9-981d7b53b123"
+                },
+                {
+                  "key": "password_confirmation",
+                  "value": "12345678",
+                  "description": "REQUIRED",
+                  "type": "text",
+                  "uuid": "705e53ec-ab54-4ba0-b3f2-ba0e655ff6c9"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base}}/v1/register",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Email Verfication",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let res = pm.response.json();\r",
+                  "\r",
+                  "if (res.success === true && res.data && res.data.token) {\r",
+                  "    let token = res.data.token;\r",
+                  "    pm.collectionVariables.set(\"token\", token);\r",
+                  "    console.log(\"Token saved to collection:\", token);\r",
+                  "} else {\r",
+                  "    console.log(\"Token not found in response\");\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "{{EMAIL}}",
+                  "type": "text",
+                  "uuid": "aa4b1dc8-0144-4fa1-a4dc-17998944b327"
+                },
+                {
+                  "key": "otp",
+                  "value": "{{OTP}}",
+                  "type": "text",
+                  "uuid": "db3f1989-22d2-41c5-9e7a-f59a16df0f56"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base}}/v1/verify-email",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "verify-email"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let res = pm.response.json();\r",
+                  "\r",
+                  "if (res.success === true && res.data && res.data.token) {\r",
+                  "    let token = res.data.token;\r",
+                  "    pm.collectionVariables.set(\"token\", token);\r",
+                  "    console.log(\"Token saved to collection:\", token);\r",
+                  "} else {\r",
+                  "    console.log(\"Token not found in response\");\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "{{EMAIL}}",
+                  "description": "REQUIRED",
+                  "type": "text",
+                  "uuid": "87c20ef7-6266-4fd7-b85a-9cecd64f43c3"
+                },
+                {
+                  "key": "password",
+                  "value": "12345678",
+                  "description": "REQUIRED",
+                  "type": "text",
+                  "uuid": "70b830a2-f6aa-431e-a2f9-981d7b53b123"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base}}/v1/login",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Forget Password (Send OTP)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.collectionVariables.set(\"OTP\", pm.response.json().data.otp);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "{{EMAIL}}",
+                  "type": "text",
+                  "uuid": "aa4b1dc8-0144-4fa1-a4dc-17998944b327"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base}}/v1/forgot-password",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "forgot-password"
+              ]
+            },
+            "description": "I can’t update the request’s description from here with the tools available in this session (they don’t support editing request documentation/description metadata directly). I did not modify anything on the request.\n\nYou can paste the following Markdown into the Docs/Description for this request, then save:  \nOpen: [Forget Password (Send OTP)](https://request/53060648-9deb01e8-dfda-4469-9846-d28e0c5357bf)\n\n``` md\n## Purpose\nSends a One-Time Password (OTP) to the user’s email address for the “forgot password” flow.\n## Request\n**Method:** POST  \n**URL:** `{{base}}/v1/forgot-password`\n### Headers\n- `Accept: application/json`\n### Body (multipart/form-data)\n| Field | Type | Required | Description |\n|------|------|----------|-------------|\n| `email` | string | yes | Email address to receive the OTP. Uses `{{email}}`. |\n## Variables used\n- `{{base}}` — Base URL (from the active environment, e.g. `local`)\n- `{{email}}` — Target user email (set in variables)\n## Response (200 OK)\nTypical successful response shape:\n```json\n{\n  \"success\": true,\n  \"message\": \"OTP sent successfully.\",\n  \"data\": {\n    \"otp\": 3267,\n    \"email\": \"john7@deo.com\",\n    \"expires_at\": \"2026-03-11 10:02:04\"\n  },\n  \"errors\": null,\n  \"code\": 200\n}\n\n ```\n\n### Notes\n\n- On success, the existing **Tests** script extracts `data.otp` and saves it into the collection variable `otp` (for use in subsequent requests).\n    \n\nIf you want, I can also create documentation for the whole folder in [jared_mitchell](https://collection/53060648-d9c02840-3cac-4ce1-86fa-726a44483075) (e.g., OTP verify + reset password) in the same style."
+          },
+          "response": []
+        },
+        {
+          "name": "Verify OTP",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.collectionVariables.set(\"reset_token\", pm.response.json().data.reset_token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "{{EMAIL}}",
+                  "type": "text",
+                  "uuid": "aa4b1dc8-0144-4fa1-a4dc-17998944b327"
+                },
+                {
+                  "key": "otp",
+                  "value": "{{OTP}}",
+                  "type": "text",
+                  "uuid": "a9be1bec-3a4a-4d64-98c8-0b39e8a009b5"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base}}/v1/verify-otp",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "verify-otp"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Set New Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "{{EMAIL}}",
+                  "type": "text",
+                  "uuid": "aa4b1dc8-0144-4fa1-a4dc-17998944b327"
+                },
+                {
+                  "key": "token",
+                  "value": "{{reset_token}}",
+                  "type": "text",
+                  "uuid": "cd2ac39b-2b9a-4056-9538-216a198dca77"
+                },
+                {
+                  "key": "password",
+                  "value": "12345678",
+                  "type": "text",
+                  "uuid": "568060da-ebe9-49dd-a4ef-589c46aa7000"
+                },
+                {
+                  "key": "password_confirmation",
+                  "value": "12345678",
+                  "type": "text",
+                  "uuid": "a0fd04e6-982d-4be1-81f7-78a7f440da92"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base}}/v1/reset-password",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "reset-password"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Profile Copy",
+      "item": [
+        {
+          "name": "Refresh Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let res = pm.response.json();\r",
+                  "\r",
+                  "if (res.success === true && res.data && res.data.token) {\r",
+                  "    let token = res.data.token;\r",
+                  "    pm.collectionVariables.set(\"token\", token);\r",
+                  "    console.log(\"Token saved to collection:\", token);\r",
+                  "} else {\r",
+                  "    console.log(\"Token not found in response\");\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/v1/refresh-token",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "refresh-token"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Refresh Token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base}}/v1/refresh-token",
+                  "host": [
+                    "{{base}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "refresh-token"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "server",
+                  "value": "nginx/1.25.2"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "PHP/8.3.29"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "date",
+                  "value": "Tue, 10 Mar 2026 09:34:36 GMT"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Access token refreshed successfully\",\n    \"data\": {\n        \"user\": {\n            \"id\": 21,\n            \"email\": \"john7@deo.com\",\n            \"status\": \"active\",\n            \"role\": \"artist\",\n            \"profile\": {\n                \"id\": 9,\n                \"name\": \"John Deo\",\n                \"username\": \"@john deofSqHCoY1\",\n                \"address\": \"\",\n                \"avatar\": \"https://jared_mitchell_laravel.test/admin/default/user.jpg\"\n            }\n        },\n        \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2phcmVkX21pdGNoZWxsX2xhcmF2ZWwudGVzdC9hcGkvdjEvcmVmcmVzaC10b2tlbiIsImlhdCI6MTc3MzEzNDY4OSwiZXhwIjoxNzczMTM4ODc2LCJuYmYiOjE3NzMxMzUyNzYsImp0aSI6Im1kV2x4bDlrbG9kVUZnNW4iLCJzdWIiOiIyMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjciLCJyb2xlIjoiYXJ0aXN0Iiwic3RhdHVzIjoiYWN0aXZlIn0.iWrcfZp2anCDVX3LszoCaKHWD4meMbnIIBt-sOowJME\",\n        \"token_type\": \"bearer\",\n        \"expires_in\": 3600\n    },\n    \"errors\": null,\n    \"code\": 200\n}"
+            }
+          ]
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{base}}/v1/logout",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "logout"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Logout",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": []
+                },
+                "url": {
+                  "raw": "{{base}}/v1/logout",
+                  "host": [
+                    "{{base}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "logout"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "server",
+                  "value": "nginx/1.25.2"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "PHP/8.3.29"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "date",
+                  "value": "Tue, 10 Mar 2026 09:37:48 GMT"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Logged out successfully\",\n    \"data\": null,\n    \"errors\": null,\n    \"code\": 200\n}"
+            }
+          ]
+        },
+        {
+          "name": "Login Copy",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let res = pm.response.json();\r",
+                  "\r",
+                  "if (res.success === true && res.data && res.data.token) {\r",
+                  "    let token = res.data.token;\r",
+                  "    pm.collectionVariables.set(\"token\", token);\r",
+                  "    console.log(\"Token saved to collection:\", token);\r",
+                  "} else {\r",
+                  "    console.log(\"Token not found in response\");\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "{{EMAIL}}",
+                  "description": "REQUIRED",
+                  "type": "text",
+                  "uuid": "87c20ef7-6266-4fd7-b85a-9cecd64f43c3"
+                },
+                {
+                  "key": "password",
+                  "value": "12345678",
+                  "description": "REQUIRED",
+                  "type": "text",
+                  "uuid": "70b830a2-f6aa-431e-a2f9-981d7b53b123"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base}}/v1/login",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Profile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/v1/profile",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "profile"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Profile",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base}}/v1/profile",
+                  "host": [
+                    "{{base}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "profile"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "server",
+                  "value": "nginx/1.25.2"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "PHP/8.3.29"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "date",
+                  "value": "Wed, 11 Mar 2026 08:22:42 GMT"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"User profile retrieved successfully\",\n    \"data\": {\n        \"id\": 21,\n        \"email\": \"john7@deo.com\",\n        \"status\": \"active\",\n        \"role\": \"artist\",\n        \"profile\": {\n            \"id\": 9,\n            \"name\": \"Jimmi doe\",\n            \"username\": \"username\",\n            \"address\": \"\",\n            \"biography\": \"hello\",\n            \"tagline\": \"\",\n            \"avatar\": \"https://jared_mitchell_laravel.test/admin/default/user.jpg\"\n        }\n    },\n    \"errors\": null,\n    \"code\": 200\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "{{$randomFirstName}}",
+                  "description": "nullable",
+                  "type": "text",
+                  "uuid": "84a74bfa-e649-40fd-a16f-5203c1be7af5"
+                },
+                {
+                  "key": "biography",
+                  "value": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                  "description": "nullable",
+                  "type": "text",
+                  "uuid": "3aaff66f-5e0d-4331-aa97-94a88c766302"
+                },
+                {
+                  "key": "tagline",
+                  "value": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the\n",
+                  "description": "nullable",
+                  "type": "text",
+                  "uuid": "0079989b-2255-43b0-892c-4e0b8d0f9e9d"
+                },
+                {
+                  "key": "username",
+                  "value": "{{$randomUserName}}",
+                  "description": "nullable",
+                  "type": "text",
+                  "uuid": "8580b3b5-cd77-4b4f-9472-514d8646f0a2"
+                },
+                {
+                  "key": "phone",
+                  "value": "{{$randomPhoneNumber}}",
+                  "type": "text",
+                  "uuid": "7890e8e8-9774-4315-982e-c0239fe5ba67"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base}}/v1/update-profile",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "update-profile"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Update Profile",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "name",
+                      "value": "Jimmi doe",
+                      "description": "nullable",
+                      "type": "text",
+                      "uuid": "84a74bfa-e649-40fd-a16f-5203c1be7af5"
+                    },
+                    {
+                      "key": "biography",
+                      "value": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                      "description": "nullable",
+                      "type": "text",
+                      "uuid": "3aaff66f-5e0d-4331-aa97-94a88c766302"
+                    },
+                    {
+                      "key": "tagline",
+                      "value": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the\n",
+                      "description": "nullable",
+                      "type": "text",
+                      "uuid": "0079989b-2255-43b0-892c-4e0b8d0f9e9d"
+                    },
+                    {
+                      "key": "username",
+                      "value": "username",
+                      "description": "nullable",
+                      "type": "text",
+                      "uuid": "8580b3b5-cd77-4b4f-9472-514d8646f0a2"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base}}/v1/update-profile",
+                  "host": [
+                    "{{base}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "update-profile"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "server",
+                  "value": "nginx/1.25.2"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "PHP/8.3.29"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "date",
+                  "value": "Wed, 11 Mar 2026 08:23:08 GMT"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Profile updated successfully\",\n    \"data\": {\n        \"id\": 21,\n        \"email\": \"john7@deo.com\",\n        \"status\": \"active\",\n        \"role\": \"artist\",\n        \"profile\": {\n            \"id\": 9,\n            \"name\": \"Jimmi doe\",\n            \"username\": \"username\",\n            \"address\": \"\",\n            \"biography\": \"hello\",\n            \"tagline\": \"\",\n            \"avatar\": \"https://jared_mitchell_laravel.test/admin/default/user.jpg\"\n        }\n    },\n    \"errors\": null,\n    \"code\": 200\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Avatar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "avatar",
+                  "type": "file",
+                  "uuid": "a49302c8-aa4c-4322-98d0-37d06f15240a",
+                  "src": "postman-cloud:///1f1739d5-1111-4610-8632-73069ac37882"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base}}/v1/update-avatar",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "update-avatar"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Update Avatar",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "avatar",
+                      "type": "file",
+                      "uuid": "a49302c8-aa4c-4322-98d0-37d06f15240a",
+                      "src": [
+                        "/C:/Users/rufuz/Downloads/Gemini_Generated_Image_j3dd04j3dd04j3dd.png"
+                      ]
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base}}/v1/update-avatar",
+                  "host": [
+                    "{{base}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "update-avatar"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "server",
+                  "value": "nginx/1.25.2"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "PHP/8.3.29"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "date",
+                  "value": "Wed, 11 Mar 2026 08:33:24 GMT"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Avatar updated successfully\",\n    \"data\": {\n        \"id\": 14,\n        \"email\": \"john7@deo.com\",\n        \"status\": \"active\",\n        \"role\": \"artist\",\n        \"profile\": {\n            \"id\": 2,\n            \"name\": \"John Deo\",\n            \"username\": \"@john deolEG8qNeu\",\n            \"address\": \"\",\n            \"biography\": \"\",\n            \"tagline\": \"\",\n            \"avatar\": \"https://jared_mitchell_laravel.test/uploads/user/avatar/1773218004-LEiXEi3a.png\"\n        }\n    },\n    \"errors\": null,\n    \"code\": 200\n}"
+            }
+          ]
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "old_password",
+                  "value": "12345678",
+                  "type": "text",
+                  "uuid": "1439ab31-c2dc-4ab4-b86c-abe6a109a37d"
+                },
+                {
+                  "key": "new_password",
+                  "value": "123456789",
+                  "type": "text",
+                  "uuid": "d0122f3f-d3dc-4d67-a03e-e1bd2c91acfa"
+                },
+                {
+                  "key": "confirm_password",
+                  "value": "123456789",
+                  "type": "text",
+                  "uuid": "906cad9b-452b-4d5f-adb5-8f51e4e30098"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base}}/v1/change-password",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "change-password"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Change Password",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "old_password",
+                      "value": "12345678",
+                      "type": "text",
+                      "uuid": "1439ab31-c2dc-4ab4-b86c-abe6a109a37d"
+                    },
+                    {
+                      "key": "new_password",
+                      "value": "123456789",
+                      "type": "text",
+                      "uuid": "d0122f3f-d3dc-4d67-a03e-e1bd2c91acfa"
+                    },
+                    {
+                      "key": "confirm_password",
+                      "value": "123456789",
+                      "type": "text",
+                      "uuid": "906cad9b-452b-4d5f-adb5-8f51e4e30098"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base}}/v1/change-password",
+                  "host": [
+                    "{{base}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "change-password"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "server",
+                  "value": "nginx/1.25.2"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "PHP/8.3.29"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "date",
+                  "value": "Wed, 11 Mar 2026 08:36:26 GMT"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Password changed successfully\",\n    \"data\": null,\n    \"errors\": null,\n    \"code\": 200\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Note Taking Copy",
+      "item": [
+        {
+          "name": "Get All Notes",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/v1/notes",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "notes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Note Store",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.collectionVariables.set(\"noteId\", pm.response.json().data.note.id);\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "jjjjjjjjjjjjjjjj",
+                  "type": "text",
+                  "uuid": "3d96b2c6-218b-4b63-8931-ac1535657063"
+                },
+                {
+                  "key": "content",
+                  "value": "dsf",
+                  "type": "text",
+                  "uuid": "93c7cce1-6eb8-46c0-85a0-c0ea57feb79c"
+                },
+                {
+                  "key": "color",
+                  "value": "dsf",
+                  "type": "text",
+                  "uuid": "34daf130-f6c4-4c35-9cc5-8d4bd2632a29"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base}}/v1/notes/store",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "notes",
+                "store"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Note Details",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{base}}/v1/notes/show/{{noteId}}",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "notes",
+                "show",
+                "{{noteId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update note",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "var noteId = pm.collectionVariables.get('noteId');",
+                  "pm.variables.set('note_id', noteId);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "dfsdfsdfdsfdsf",
+                  "type": "text",
+                  "uuid": "3d96b2c6-218b-4b63-8931-ac1535657063"
+                },
+                {
+                  "key": "content",
+                  "value": "dsf",
+                  "type": "text",
+                  "uuid": "93c7cce1-6eb8-46c0-85a0-c0ea57feb79c"
+                },
+                {
+                  "key": "color",
+                  "value": "dsf",
+                  "type": "text",
+                  "uuid": "34daf130-f6c4-4c35-9cc5-8d4bd2632a29"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base}}/v1/notes/update/{{noteId}}",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "notes",
+                "update",
+                "{{noteId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Auto save",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "note_id",
+                  "value": "{{noteId}}",
+                  "description": "nullable",
+                  "type": "text",
+                  "uuid": "3d96b2c6-218b-4b63-8931-ac1535657063"
+                },
+                {
+                  "key": "title",
+                  "value": "dsfgfdgfdgdfsdfsdfsdfsdfd edit",
+                  "description": "nullable",
+                  "type": "text",
+                  "uuid": "93c7cce1-6eb8-46c0-85a0-c0ea57feb79c"
+                },
+                {
+                  "key": "content",
+                  "value": "dsf",
+                  "description": "REQUIRED",
+                  "type": "text",
+                  "uuid": "34daf130-f6c4-4c35-9cc5-8d4bd2632a29"
+                },
+                {
+                  "key": "color",
+                  "value": "ffdsf",
+                  "description": "nullable",
+                  "type": "text",
+                  "uuid": "0df29ead-e31e-4279-8e81-739ff3a81180"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base}}/v1/notes/auto-save",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "notes",
+                "auto-save"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Note",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{base}}/v1/notes/delete/{{noteId}}",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "notes",
+                "delete",
+                "{{noteId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Privacy & Terms Copy",
+      "item": [
+        {
+          "name": "Privacy Policy",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "",
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 2000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a JSON body\", function () {",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test(\"Response body contains a truthy/success status field\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property(\"status\");",
+                  "    pm.expect(jsonData.status == true || jsonData.status === 1 || jsonData.status === \"success\").to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response body contains a data field\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property(\"data\");",
+                  "});",
+                  "",
+                  "pm.test(\"Content-Type header is present and contains application/json\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/v1/privacy-policy",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "privacy-policy"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Terms & Condition",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "",
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 2000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a JSON body\", function () {",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test(\"Response body contains a truthy/success status field\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property(\"status\");",
+                  "    pm.expect(jsonData.status == true || jsonData.status === 1 || jsonData.status === \"success\").to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response body contains a data field\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property(\"data\");",
+                  "});",
+                  "",
+                  "pm.test(\"Content-Type header is present and contains application/json\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/v1/terms-conditions",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "terms-conditions"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Farm Copy",
+      "item": [
+        {
+          "name": "Farm list",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"FarmId\", pm.response.json().data.farms[0].id);",
+                  "",
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is acceptable\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has JSON content-type\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response body has success status\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.satisfy(function (s) {",
+                  "        return s === true || s === \"success\" || s === 1;",
+                  "    });",
+                  "});",
+                  "",
+                  "pm.test(\"Response has data object\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property(\"data\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response has farms array\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property(\"farms\");",
+                  "    pm.expect(jsonData.data.farms).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"Farms array is not empty\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data.farms.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"Each farm has required fields\", function () {",
+                  "    var farms = pm.response.json().data.farms;",
+                  "    farms.forEach(function (farm) {",
+                  "        pm.expect(farm).to.have.property(\"id\");",
+                  "        pm.expect(farm).to.have.property(\"name\");",
+                  "    });",
+                  "});",
+                  "",
+                  "pm.test(\"FarmId collection variable is set\", function () {",
+                  "    var farmId = pm.collectionVariables.get(\"FarmId\");",
+                  "    pm.expect(farmId).to.not.be.null;",
+                  "    pm.expect(farmId).to.not.be.undefined;",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "packages": {},
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/v1/farms",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "farms"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "gr",
+                  "description": "seach by name, address, tags, city",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Farm list",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base}}/v1/farms?search=gr",
+                  "host": [
+                    "{{base}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "farms"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "gr",
+                      "description": "seach by name, address, tags, city"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Fri, 27 Mar 2026 10:26:18 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "Apache"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "530"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5, max=100"
+                },
+                {
+                  "key": "Connection",
+                  "value": "Keep-Alive"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Farms retrieved successfully.\",\n    \"data\": {\n        \"farms\": [\n            {\n                \"id\": 14,\n                \"type\": \"farm\",\n                \"name\": \"Green Leaf Farm\",\n                \"address\": \"692 Carmen Centers Suite 530\",\n                \"city\": \"West Ezekiel\",\n                \"state\": \"North Carolina\",\n                \"country\": \"US\",\n                \"latitude\": 43.30904600000000215231921174563467502593994140625,\n                \"longitude\": -86.5351730000000003428795025683939456939697265625,\n                \"thumbnail\": \"https://sizematterswt.thewarriors.team/storage/farms/thumb-5.jpg\",\n                \"tags\": \"[\\\"organic\\\",\\\"vegetables\\\",\\\"dairy\\\",\\\"fruits\\\"]\",\n                \"status\": \"active\",\n                \"is_featured\": true,\n                \"phone\": \"442.279.9609\",\n                \"marker_color\": \"#008816\",\n                \"marker_icon\": \"map-marker-4.png\",\n                \"owner_name\": \"Garret Schroeder\",\n                \"owner_address\": \"71810 Satterfield Mission\\nLake Pathaven, VT 01572\",\n                \"owner_phone\": \"+13218182671\",\n                \"owner_avatar\": \"https://sizematterswt.thewarriors.team/storage/owners/avatar-3.jpg\"\n            }\n        ],\n        \"pagination\": {\n            \"current_page\": 1,\n            \"last_page\": 1,\n            \"per_page\": 15,\n            \"total\": 1\n        }\n    },\n    \"errors\": null,\n    \"code\": 200\n}"
+            }
+          ]
+        },
+        {
+          "name": "Farm details ( Id = Farm Id )",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/v1/farms/{{FarmId}}",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "farms",
+                "{{FarmId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Event Copy",
+      "item": [
+        {
+          "name": "Event list",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.collectionVariables.set(\"EventId\", pm.response.json().data.events[0].id);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/v1/events",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "events"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Event details ( Id = Event Id )",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/v1/events/{{EventId}}",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "events",
+                "{{EventId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Global Map Copy",
+      "item": [
+        {
+          "name": "Get map data",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/v1/map",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "v1",
+                "map"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base",
+      "value": ""
+    },
+    {
+      "key": "OTP",
+      "value": ""
+    },
+    {
+      "key": "EMAIL",
+      "value": ""
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "reset_token",
+      "value": ""
+    },
+    {
+      "key": "noteId",
+      "value": ""
+    },
+    {
+      "key": "FarmId",
+      "value": ""
+    },
+    {
+      "key": "EventId",
+      "value": ""
+    }
+  ]
+}
